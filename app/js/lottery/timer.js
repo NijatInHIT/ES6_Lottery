@@ -16,7 +16,7 @@ class Timer{
             let d = Math.floor(last_time/px_d);
             let h = Math.floor(last_time/px_h-d*24);
             let m = Math.floor((last_time-px_d*d-px_h*h)/px_m);
-            let m = Math.floor((last_time-px_d*d-px_h*h-px_m*m)/px_s);
+            let s = Math.floor((last_time-px_d*d-px_h*h-px_m*m)/px_s);
             let r=[];
             if(d>0){
                 r.push(`<em>---${d}---</em> day`);

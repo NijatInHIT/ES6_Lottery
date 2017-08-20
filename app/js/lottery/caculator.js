@@ -16,8 +16,41 @@ class Caculator{
         let arr=new Array(play[1]*1).fill(0);
         let min,max;
         if(play[0]==='r'){
-            
+            let min_active=5-(11-active);
+            if(min_active>0){
+                if(min_active-play[1]>=0){
+                    arr=new Array(min_active).fill(0);    //es6实例化固定长度数组并填充
+                    min=Caculator.combine(arr,play[1]).length;
+                }else{
+                    if(play[1]-5>0&&active-play[1]>=0){
+                        arr=new Array(active-5).fill(0);
+                        min=Caculator.combine(arr,play[1]-5).length;
+                    }else{
+                        min=active-play[1]>1?1:0;
+                    }
+                }
+            }else{
+                min=active-play[1]>-1?1:0;
+            }
+
+            let max_active=Math.min(active,5);
+                if(play[1]-5>0){
+                    if(active-play[1]>=0){
+                        arr=new Array(active-5).fill(0);
+                        max=Caculator.combine(arr,play[1]-5).length;
+                }else{
+                    max=0;
+                }
+            }else if(play[1]-5<0){
+                arr=new Array(Math.min(active,5).fill(0));
+                max=Caculator.combine(arr,play[1].length);
+            }else{
+                max=1;
+            }
         }
+        return [min,max].map(item=>{
+            return item*self.play_list.get(play_name).bonus;
+        });
     }
 
     static combine(arr,size){                       //静态方法
@@ -47,3 +80,5 @@ class Caculator{
         })(arr,size,[]);
     }
 }
+
+export default Caculator

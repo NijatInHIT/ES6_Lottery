@@ -42,7 +42,7 @@
     console.log(x1);
     
     let list1 =new Set([1,2,1,1,2]);
-    console.log(list1);
+    console.log(Array.from(list1));
 
 }
 
