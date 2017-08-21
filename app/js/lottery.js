@@ -14,6 +14,8 @@ const copyInDeep=function(target,source){
     }
 }
 
+// name length  数据项的Writable属性为false，所以，即使操作了value，也不会改变。
+
 const mix=function(...mixins){
     class Mix{}
     for(let mixin of mixins){

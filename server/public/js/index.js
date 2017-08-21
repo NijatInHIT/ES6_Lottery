@@ -134,6 +134,8 @@
 	    }
 	};
 
+	// name length  数据项的Writable属性为false，所以，即使操作了value，也不会改变。
+
 	var mix = function mix() {
 	    var Mix = function Mix() {
 	        _classCallCheck(this, Mix);
