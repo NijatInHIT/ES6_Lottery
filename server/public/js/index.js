@@ -19521,10 +19521,6 @@
 
 	'use strict';
 
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -19535,49 +19531,54 @@
 	    }
 
 	    _createClass(Timer, [{
-	        key: 'countdown',
-	        value: function countdown(end, update, handle) {
-	            var now = new Date().getTime();
-	            var self = this;
-	            if (now > end) {
-	                handle.call(self);
-	            } else {
-	                var last_time = end - now;
-	                var px_d = 1000 * 60 * 60 * 24;
-	                var px_h = 1000 * 60 * 60;
-	                var px_m = 1000 * 60;
-	                var px_s = 1000;
-	                var d = Math.floor(last_time / px_d);
-	                var h = Math.floor(last_time / px_h - d * 24);
-	                var m = Math.floor((last_time - px_d * d - px_h * h) / px_m);
-	                var s = Math.floor((last_time - px_d * d - px_h * h - px_m * m) / px_s);
-	                var r = [];
-	                if (d > 0) {
-	                    r.push('<em>---' + d + '---</em> day');
-	                }
-	                if (r.length || h > 0) {
-	                    r.push('<em>' + h + '</em> hour');
-	                }
-	                if (r.length || m > 0) {
-	                    r.push('<em>' + m + '</em> min');
-	                }
-	                if (r.length || s > 0) {
-	                    r.push('<em>' + s + '</em> sec');
-	                }
+	        key: 'countDown',
+	        value: function (_countDown) {
+	            function countDown(_x, _x2, _x3) {
+	                return _countDown.apply(this, arguments);
+	            }
 
-	                self.last_time = r.join('');
-	                update.call(self, r.join(''));
+	            countDown.toString = function () {
+	                return _countDown.toString();
+	            };
+
+	            return countDown;
+	        }(function (end, update, handle) {
+	            var now = new Date().getTime();
+	            if (now > end) {
+	                handle();
+	            } else {
+	                var leftTime = end - now;
+	                var d = 24 * 60 * 60 * 1000;
+	                var h = d / 24;
+	                var m = m / 60;
+	                var s = s / 60;
+	                var left_d = Math.floor(leftTime / d);
+	                var left_h = Math.floor((leftTime - left_d * d) / h);
+	                var left_m = Math.floor((leftTime - left_d * d - left_h * h) / m);
+	                var left_s = Math.floor((leftTime - left_d * d - left_h * h - left_m * m) / s);
+	                var a1 = [];
+	                if (left_d > 0) {
+	                    a1.push('<em>' + left_d + '</em>\u5929');
+	                }
+	                if (a1.length || left_h > 0) {
+	                    a1.push('<em>' + left_h + '</em>\u5C0F\u65F6');
+	                }
+	                if (a1.length || left_m > 0) {
+	                    a1.push('<em>' + left_m + '</em>\u5206\u949F');
+	                }
+	                if (a1.length || left_s > 0) {
+	                    a1.push('<em>' + left_s + '</em>\u79D2 ');
+	                }
+	                update.call(this, a1.join('/'));
 	                setTimeout(function () {
-	                    self.countdown(end, update, handle);
+	                    countDown(end, update, handle);
 	                }, 1000);
 	            }
-	        }
+	        })
 	    }]);
 
 	    return Timer;
 	}();
-
-	exports.default = Timer;
 
 /***/ }),
 /* 332 */

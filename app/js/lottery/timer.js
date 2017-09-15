@@ -1,43 +1,38 @@
-
-
 class Timer{
-    countdown(end,update,handle){
-        const now = new Date().getTime();
-        const self=this;
-        if(now >end){
-            handle.call(self);
-        }
-        else{
-            let last_time=end-now;
-            const px_d=1000*60*60*24;
-            const px_h=1000*60*60;
-            const px_m=1000*60;
-            const px_s=1000;
-            let d = Math.floor(last_time/px_d);
-            let h = Math.floor(last_time/px_h-d*24);
-            let m = Math.floor((last_time-px_d*d-px_h*h)/px_m);
-            let s = Math.floor((last_time-px_d*d-px_h*h-px_m*m)/px_s);
-            let r=[];
-            if(d>0){
-                r.push(`<em>---${d}---</em> day`);
+    countDown(end,update,handle){
+         const now=new Date().getTime();
+         if(now>end){
+             handle();
+         }else{
+             let leftTime=end-now;
+             const d=24*60*60*1000;
+             const h=d/24;
+             const m=m/60;
+             const s=s/60;
+             const left_d=Math.floor(leftTime/d);
+             const left_h=Math.floor((leftTime-left_d*d)/h);
+             const left_m=Math.floor((leftTime-left_d*d-left_h*h)/m);
+             const left_s=Math.floor((leftTime-left_d*d-left_h*h-left_m*m)/s);
+             let a1=[];
+             if(left_d>0){
+                 a1.push(`<em>${left_d}</em>天`);
+             }
+             if(a1.length||left_h>0){
+                 a1.push(`<em>${left_h}</em>小时`);
+             }
+             if(a1.length||left_m>0){
+                a1.push(`<em>${left_m}</em>分钟`);
             }
-            if(r.length||h>0){
-                r.push(`<em>${h}</em> hour`)
+            if(a1.length||left_s>0){
+                a1.push(`<em>${left_s}</em>秒 `);
             }
-            if(r.length||m>0){
-                r.push(`<em>${m}</em> min`)
-            }
-            if(r.length||s>0){
-                r.push(`<em>${s}</em> sec`)
-            }
-
-            self.last_time=r.join('');
-            update.call(self,r.join(''));
+            update.call(this,a1.join('/'));
             setTimeout(()=>{
-                self.countdown(end,update,handle)
+                countDown(end,update,handle);
             },1000);
-        }
+         }
     }
 }
+
 
 export default Timer

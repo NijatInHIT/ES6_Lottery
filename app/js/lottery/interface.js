@@ -1,75 +1,74 @@
-
-import $ from 'jQuery';
-
+import $ from 'jquery';
 
 
-class Interface{
-    
-    getOmit(issure){
+class Interface {
+
+    getOmit(issue){
         let self=this;
         return new Promise((resolve,reject)=>{
             $.ajax({
-                url:'/get/omit',
-                data:{
-                    issure:issure
-                },
+                url:'interface here',
+                type:'post',
                 dataType:'json',
-                success:function(rec){
-                    console.log('http success');
-                    self.setOmit(rec.data);
-                    resolve.call(self,rec);
+                data:{
+                    issue:issue
                 },
-                error:function(rec){
-                    console.log('http fail',rec);
-                    rejcet.call(self,err);
+                success:function(data){
+                    self.setOmit();
+                    resolve.bind(self,data);
+                },
+                error:function(err){
+                    rejcet.bind(self,err);
                 }
             });
         });
     }
 
-    getOpenCode(issure){
+    getOpenCode(issue){
+
         let self=this;
         return new Promise((resolve,reject)=>{
             $.ajax({
-                url:'ddd',
+                type:'post',
                 data:{
-                    issure:issure 
+                    issue:issue
                 },
                 dataType:'json',
-                success:function(rec){
-                    console.log('openCode Http Success');
-                    self.setOpenCode(rec.data);
-                    resolve.call(self,rec);
+                url:'getOpencode',
+                success:function(data){
+                    self.setOpenCode();
+                    resolve.bind(self,data);
                 },
-                error:function(rec){
-                    console.log('openCode Http Error');
-                    reject.call(self,rec);
+                error:function(err){
+                    rejcet.bind(self,err);
                 }
             });
         });
     }
 
-    getState(issure){
+    getState(issue){
         let self=this;
         return new Promise((resolve,reject)=>{
             $.ajax({
-                url:'ddd',
-                data:{
-                    issure:issure 
-                },
+                type:'post',
                 dataType:'json',
-                success:function(rec){
-                    console.log('openCode Http Success');
-                    self.setOpenCode(rec.data);
-                    resolve.call(self,rec);
+                url:'getState',
+                data:{
+                    issue:issue
                 },
-                error:function(rec){
-                    console.log('openCode Http Error');
-                    reject.call(self,rec);
+                success:function(data){
+                    resolve.bind(self,data);
+                },
+                error:function(err){
+                    rejcet.bind(self,err);
                 }
             });
         });
+
     }
 }
 
+
 export default Interface
+
+

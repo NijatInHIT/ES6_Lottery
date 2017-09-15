@@ -1,11 +1,11 @@
 
 class Caculator{
     computeCount(active,play_name){
-        let count =0;
-        const exist=this.play_list.has(play_name);   //map
-        const arr=new Array(active).fill('0');       // array
-        if(exist&& play_name[0]==='r'){
-            count=Caculator.combine(arr,play_name.split('')[1]);
+        var exist=this.play_list.has(play_name);
+        let count=0;
+        const arr=new Array(active).fill('0');
+        if(exist&&play_name[0]==='r'){
+            count=Caculator.combine(arr,play_name[1]);
         }
         return count;
     }
